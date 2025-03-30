@@ -64,10 +64,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Views\RelatorioGastos.xaml.cs">
+	    <DependentUpon>RelatorioGastos.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="Views\EditarProduto.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\ListaProduto.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\RelatorioGastos.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\NovoProduto.xaml">

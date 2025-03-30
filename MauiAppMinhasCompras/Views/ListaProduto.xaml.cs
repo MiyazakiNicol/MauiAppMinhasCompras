@@ -1,5 +1,6 @@
 using MauiAppMinhasCompras.Models;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MauiAppMinhasCompras.Views;
 
@@ -140,5 +141,38 @@ public partial class ListaProduto : ContentPage
         {
             lst_produtos.IsRefreshing = false;
         }
+    }
+
+    private void picker_categoria_filtro_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (picker_categoria_filtro.SelectedItem != null)
+        {
+            string categoriaSelecionada = picker_categoria_filtro.SelectedItem.ToString();
+            FiltrarProdutosPorCategoria(categoriaSelecionada);
+        }
+    }
+
+    private async void FiltrarProdutosPorCategoria(string categoria)
+    {
+        try
+        {
+            lista.Clear();
+            List<Produto> produtos = await App.Db.GetAll();
+
+            var produtosFiltrados = produtos
+                .Where(p => p.Categoria != null && p.Categoria.Equals(categoria, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            produtosFiltrados.ForEach(p => lista.Add(p));
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Erro", $"Falha ao filtrar: {ex.Message}", "OK");
+        }
+    }
+
+    private void ToolbarItem_Clicked_Relatorio(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new Views.RelatorioGastos());
     }
 }
