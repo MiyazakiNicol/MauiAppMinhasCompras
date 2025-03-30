@@ -47,20 +47,26 @@ public partial class ListaProduto : ContentPage
 
     private async void txt_search_TextChanged(object sender, TextChangedEventArgs e)
     {
-		//Preenchimento da lista para o search sem acumulo de diversos itens da busca
-		try
-		{
-			string q = e.NewTextValue;
+        //Preenchimento da lista para o search sem acumulo de diversos itens da busca
+        try
+        {
+            string q = e.NewTextValue;
 
-			lista.Clear();
+            lst_produtos.IsRefreshing = true;
 
-			List<Produto> tmp = await App.Db.Search(q);
+            lista.Clear();
 
-			tmp.ForEach(i => lista.Add(i));
-		}
-		catch (Exception ex)
-		{
+            List<Produto> tmp = await App.Db.Search(q);
+
+            tmp.ForEach(i => lista.Add(i));
+        }
+        catch (Exception ex)
+        {
             await DisplayAlert("Ops", ex.Message, "OK");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
         }
     }
 
@@ -113,6 +119,26 @@ public partial class ListaProduto : ContentPage
         catch (Exception ex)
         {
             DisplayAlert("Ops", ex.Message, "OK");
+        }
+    }
+
+    private async void lst_produtos_Refreshing(object sender, EventArgs e)
+    {
+        try
+        {
+            lista.Clear();
+
+            List<Produto> tmp = await App.Db.GetAll();
+
+            tmp.ForEach(i => lista.Add(i));
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Ops", ex.Message, "OK");
+        }
+        finally
+        {
+            lst_produtos.IsRefreshing = false;
         }
     }
 }
