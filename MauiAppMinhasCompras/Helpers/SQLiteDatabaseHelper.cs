@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MauiAppMinhasCompras.Models;
 using SQLite;
-using MauiAppMinhasCompras;
-using MauiAppMinhasCompras.Models;
 
 namespace MauiAppMinhasCompras.Helpers
 {
@@ -33,7 +27,7 @@ namespace MauiAppMinhasCompras.Helpers
 
         public Task<int> Delete(int id) 
         {
-            return _conn.Table<Produto>().DeleteAsync(i => i.Id == id);)
+            return _conn.Table<Produto>().DeleteAsync(i => i.Id == id);
         }
         public Task<List<Produto>> GetAll() 
         {
