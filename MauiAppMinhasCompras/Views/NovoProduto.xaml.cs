@@ -13,7 +13,7 @@ public partial class NovoProduto : ContentPage
     {
 		try 
 		{
-			//Preenchimento do objeto Produto
+			//Preenchimento do objeto Produto e Inserir
 			Produto p = new Produto
 			{
 				Descricao = txt_descricao.Text,
@@ -26,7 +26,7 @@ public partial class NovoProduto : ContentPage
 
 		} catch (Exception ex) 
 		{
-			DisplayAlert("Ops", ex.Message, "OK");
+			await DisplayAlert("Ops", ex.Message, "OK");
 		}
     }
 }
